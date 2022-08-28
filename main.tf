@@ -156,7 +156,7 @@ resource "aws_ecs_service" "fargate_nginx" {
     task_definition = aws_ecs_task_definition.nginx.arn
     desired_count = 1
     network_configuration {
-      subnets = aws_subnet.fargate_public_subnet.id
+      subnets = [aws_subnet.fargate_public_subnet.id]
       assign_public_ip = true
       security_groups = [aws_security_group.allow_all_http.id]
     }
