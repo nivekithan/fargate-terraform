@@ -126,13 +126,3 @@ resource "aws_ecs_task_definition" "nginx" {
     }
 }
 
-
-
-variable "nginx_tag" {
-    type = "string"
-    description = "Nginx image tag"
-}
-
-locals {
-    repo_name = "learn_ecr"
-}
