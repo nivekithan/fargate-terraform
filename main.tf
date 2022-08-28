@@ -91,3 +91,7 @@ resource "aws_subnet" "fargate_private_subnet_2" {
 }
 
 
+resource "aws_ecs_cluster" "fargate_terraform" {
+    name = "fargate_terraform"
+    
+}
