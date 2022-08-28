@@ -22,6 +22,16 @@ resource "aws_vpc" "fargte_main" {
   }
 }
 
+resource "aws_internet_gateway" "fargate_gateway" {
+    vpc_id = aws_vpc.fargte_main.id
+    depends_on = [
+      aws_vpc.fargte_main
+    ]
+    tags = {
+      "Name" = "fargate_gateway"
+    }
+}
+
 resource "aws_subnet" "fargate_public_subnet" {
 
     vpc_id = aws_vpc.fargte_main.id
