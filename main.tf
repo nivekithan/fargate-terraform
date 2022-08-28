@@ -150,7 +150,7 @@ resource "aws_ecs_task_definition" "nginx" {
 }
 
 
-resource "aws_ecs_service" "fargate_nginx" {
+resource "aws_ecs_service" "fargate_nginx_1" {
     name = "fargate_nginx"
     cluster = aws_ecs_cluster.fargate_terraform.id
     task_definition = aws_ecs_task_definition.nginx.arn
