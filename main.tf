@@ -95,3 +95,44 @@ resource "aws_ecs_cluster" "fargate_terraform" {
     name = "fargate_terraform"
     
 }
+
+resource "aws_ecs_task_definition" "nginx" {
+    family = "fargate_nginx"
+    
+ 
+    container_definitions = jsonencode([
+    {
+        name = "nginx"
+        cpu = 0
+        image = "00519828617.dkr.ecr.ap-south-1.amazonaws.com/learn-ecr:0e8c61cbda82524bd4389725b8bd953ac46083e3"
+        portMappings = [
+            {
+                containerPort = 80
+                hostPort = 80
+                portcol = "tcp"
+            }
+        ]
+        essential = true
+    }        
+    ])
+    execution_role_arn = "arn:aws:iam::100519828617:role/ecsTaskExecutionRole"
+    networkMode = "awsvpc"
+    requires_compatibilities = ["FARGATE"]
+    cpu = 512
+    memory = 1024
+    runtime_platform {
+      cpu_architecture = "X86_64"
+      operating_system_family = "LINUX"
+    }
+}
+
+
+
+variable "nginx_tag" {
+    type = "string"
+    description = "Nginx image tag"
+}
+
+locals {
+    repo_name = "learn_ecr"
+}
