@@ -22,6 +22,29 @@ resource "aws_vpc" "fargte_main" {
   }
 }
 
+resource "aws_security_group" "allow_all_http" {
+    name = "allow_all_http"
+    description = "Allow http always"
+    vpc_id = aws_vpc.fargte_main.id
+
+    ingress {
+        description = "HTTP from everywhere"
+        from_port = 80
+        to_port = 80
+        protocol = "http"
+        cidr_blocks = ["0.0.0.0/0"]
+    }
+
+    
+  egress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+}
+
 resource "aws_internet_gateway" "fargate_gateway" {
     vpc_id = aws_vpc.fargte_main.id
     depends_on = [
@@ -132,5 +155,10 @@ resource "aws_ecs_service" "fargate_nginx" {
     cluster = aws_ecs_cluster.fargate_terraform.id
     task_definition = aws_ecs_task_definition.nginx.arn
     desired_count = 1
+    network_configuration {
+      subnets = aws_subnet.fargate_public_subnet.id
+      assign_public_ip = true
+      security_groups = [aws_security_group.allow_all_http.id]
+    }
     
 }
