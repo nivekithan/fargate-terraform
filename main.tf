@@ -127,7 +127,7 @@ resource "aws_ecs_task_definition" "nginx" {
     {
         name = "nginx"
         cpu = 0
-        image = "00519828617.dkr.ecr.ap-south-1.amazonaws.com/learn-ecr:0e8c61cbda82524bd4389725b8bd953ac46083e3"
+        image = "100519828617.dkr.ecr.ap-south-1.amazonaws.com/learn-ecr:0e8c61cbda82524bd4389725b8bd953ac46083e3"
         portMappings = [
             {
                 containerPort = 80
@@ -162,5 +162,7 @@ resource "aws_ecs_service" "fargate_nginx_1" {
       subnets = [aws_subnet.fargate_public_subnet.id]
       security_groups = [aws_security_group.allow_all_http.id]
     }
+
+    
     
 }
