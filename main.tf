@@ -116,7 +116,7 @@ resource "aws_ecs_task_definition" "nginx" {
     }        
     ])
     execution_role_arn = "arn:aws:iam::100519828617:role/ecsTaskExecutionRole"
-    networkMode = "awsvpc"
+    network_mode = "awsvpc"
     requires_compatibilities = ["FARGATE"]
     cpu = 512
     memory = 1024
