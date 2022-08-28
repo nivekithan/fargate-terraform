@@ -156,8 +156,11 @@ resource "aws_ecs_service" "fargate_nginx_1" {
     task_definition = aws_ecs_task_definition.nginx.arn
     desired_count = 1
     launch_type = "FARGATE"
-
-    
+  
+    capacity_provider_strategy {
+      base = 1
+      weight = 100
+    }  
     network_configuration {
       subnets = [aws_subnet.fargate_public_subnet.id]
       security_groups = [aws_security_group.allow_all_http.id]
