@@ -155,7 +155,6 @@ resource "aws_ecs_service" "fargate_nginx_1" {
     cluster = aws_ecs_cluster.fargate_terraform.id
     task_definition = aws_ecs_task_definition.nginx.arn
     desired_count = 1
-    launch_type = "FARGATE"
   
     capacity_provider_strategy {
       base = 1
