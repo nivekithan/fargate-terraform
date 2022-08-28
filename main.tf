@@ -31,7 +31,7 @@ resource "aws_security_group" "allow_all_http" {
         description = "HTTP from everywhere"
         from_port = 80
         to_port = 80
-        protocol = "http"
+        protocol = "tcp"
         cidr_blocks = ["0.0.0.0/0"]
     }
 
