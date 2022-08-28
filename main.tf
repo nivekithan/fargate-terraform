@@ -164,5 +164,6 @@ resource "aws_ecs_service" "fargate_nginx_1" {
     network_configuration {
       subnets = [aws_subnet.fargate_public_subnet.id]
       security_groups = [aws_security_group.allow_all_http.id]
+      assign_public_ip = true
     }   
 }
